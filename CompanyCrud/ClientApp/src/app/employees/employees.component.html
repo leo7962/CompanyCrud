@@ -1,0 +1,19 @@
+<h1 id="tableLabel">Employees</h1>
+
+<p *ngIf="!dataEmployee?.length"><em>Loading...</em></p>
+
+<table *ngIf="dataEmployee.length" aria-labelledby="tableLabel" class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <!--<th>Employee Name</th>
+    <th>Employee Salary</th>
+    <th>Employee Age</th>-->
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let employee of dataEmployee">
+    <td>{{employee.data}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -19,9 +19,9 @@ npm install
 👤 **Leonardo Fabián Hernández Peña**
 
 * Website: https://www.linkedin.com/in/leo7962/
-* Twitter: [@https:\/\/twitter.com\/Paulistano\_Leo](https://twitter.com/https:\/\/twitter.com\/Paulistano\_Leo)
+* Twitter: [@https://twitter.com/Paulistano_Leo](https://twitter.com/Paulistano_Leo)
 * Github: [@leo7962](https://github.com/leo7962)
-* LinkedIn: [@https:\/\/www.linkedin.com\/in\/leo7962\/](https://linkedin.com/in/https:\/\/www.linkedin.com\/in\/leo7962\/)
+* LinkedIn: [@https://www.linkedin.com/in/leo7962/](https://linkedin.com/in/leo7962/)
 
 ## Show your support
 

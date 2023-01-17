@@ -6,7 +6,8 @@ public interface IEmployeeRepository
 {
     Task<Employee> CreateEmployeeAsync(Employee employee);
     Task<DummyApiResult> GetEmployeesAsync();
-    Task<DummyApiResultUnique> GetEmployeeAsync(string employeeId);
-    Task<Employee> UpdateEmployeeAsync(string id, Employee employee);
+    Task<DummyApiResultUnique> GetEmployeeAsync(int employeeId);
+    Task<Employee> UpdateEmployeeAsync(int id, Employee employee);
     Task DeleteEmployeeAsync(int employeeId);
+    Task<int> GetAnualSalary(int employeeId);
 }

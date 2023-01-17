@@ -31,13 +31,19 @@ public class EmployeesController : ControllerBase
         return Ok(employees);
     }
 
-    [HttpGet("{id}", Name = "getEmployee")]
+    [HttpGet("{id:int}", Name = "getEmployee")]
     [AllowAnonymous]
-    public async Task<ActionResult<DummyApiResultUniqueDto>> GetEmployeeById(string id)
+    public async Task<ActionResult<DummyApiResultUniqueDto>> GetEmployeeById(int id)
     {
         var employee = await _employeeRepository.GetEmployeeAsync(id);
 
         if (employee == null) return NotFound();
+
+        if (employee.Data?.EmployeeSalary != null && int.Parse(employee.Data?.EmployeeSalary) != 0)
+        {
+            var anualSalary = await _employeeRepository.GetAnualSalary(id);
+            employee.Data.EmployeeSalary = anualSalary.ToString();
+        }
 
         var dto = _mapper.Map<DummyApiResultUnique>(employee);
         return Ok(dto);
@@ -54,8 +60,8 @@ public class EmployeesController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("{id}", Name = "UpdateEmployee")]
-    public async Task<ActionResult> UpdateEmployee(string id, [FromBody] EmployeeCreatedDto employeeCreatedDto)
+    [HttpPut("{id:int}", Name = "UpdateEmployee")]
+    public async Task<ActionResult> UpdateEmployee(int id, [FromBody] EmployeeCreatedDto employeeCreatedDto)
     {
         if (employeeCreatedDto == null) BadRequest();
         var entity = _mapper.Map<Employee>(employeeCreatedDto);

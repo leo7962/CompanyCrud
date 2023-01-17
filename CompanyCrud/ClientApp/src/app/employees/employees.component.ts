@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Dummyapiresult} from "../interfaces/dummyapiresult";
-import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-employees',

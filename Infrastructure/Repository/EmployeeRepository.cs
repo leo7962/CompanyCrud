@@ -23,8 +23,10 @@ public class EmployeeRepository : IEmployeeRepository
         var employeeCreated = JsonConvert.DeserializeObject<DummyApiResultUnique>(responseString);
         var userCreated = new Employee
         {
-            Id = employeeCreated?.Data?.Id, EmployeeName = employee.EmployeeName,
-            EmployeeSalary = employee.EmployeeSalary, EmployeeAge = employee.EmployeeAge
+            Id = employeeCreated?.Data?.Id,
+            EmployeeName = employee.EmployeeName,
+            EmployeeSalary = employee.EmployeeSalary,
+            EmployeeAge = employee.EmployeeAge
         };
         return userCreated;
     }
@@ -38,7 +40,7 @@ public class EmployeeRepository : IEmployeeRepository
         return employees ?? new DummyApiResult();
     }
 
-    public async Task<DummyApiResultUnique> GetEmployeeAsync(string employeeId)
+    public async Task<DummyApiResultUnique> GetEmployeeAsync(int employeeId)
     {
         var response = await _httpClient.GetAsync($"/api/v1/employee/{employeeId}");
         if (!response.IsSuccessStatusCode) return new DummyApiResultUnique();
@@ -47,7 +49,7 @@ public class EmployeeRepository : IEmployeeRepository
         return employee ?? new DummyApiResultUnique();
     }
 
-    public async Task<Employee> UpdateEmployeeAsync(string id, Employee employee)
+    public async Task<Employee> UpdateEmployeeAsync(int id, Employee employee)
     {
         var content = new StringContent(employee.ToString() ?? string.Empty);
         var response = await _httpClient.PutAsync($"/api/v1/update/{id}", content);
@@ -56,8 +58,10 @@ public class EmployeeRepository : IEmployeeRepository
         var employeeUpdated = JsonConvert.DeserializeObject<Employee>(responseString);
         var userCreated = new Employee
         {
-            Id = employeeUpdated?.Id, EmployeeName = employee.EmployeeName,
-            EmployeeSalary = employee.EmployeeSalary, EmployeeAge = employee.EmployeeAge
+            Id = employeeUpdated?.Id,
+            EmployeeName = employee.EmployeeName,
+            EmployeeSalary = employee.EmployeeSalary,
+            EmployeeAge = employee.EmployeeAge
         };
         return userCreated;
     }
@@ -66,5 +70,15 @@ public class EmployeeRepository : IEmployeeRepository
     {
         var response = await _httpClient.DeleteAsync($"/api/v1/delete/{employeeId}");
         if (!response.IsSuccessStatusCode) await response.Content.ReadAsStringAsync();
+    }
+
+    public async Task<int> GetAnualSalary(int employeeId)
+    {
+        var response = await _httpClient.GetAsync($"/api/v1/employee/{employeeId}");
+        if (!response.IsSuccessStatusCode) return 0;
+        var responseString = await response.Content.ReadAsStringAsync();
+        var employee = JsonConvert.DeserializeObject<DummyApiResultUnique>(responseString);
+        var employeeAnualSalary = int.Parse(employee?.Data.EmployeeSalary) * 12;
+        return employeeAnualSalary;
     }
 }
